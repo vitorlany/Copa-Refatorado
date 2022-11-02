@@ -58,7 +58,12 @@ public class Aplicacao {
                     System.err.println(prox);
                     break;
             }
-            
+        }
+
+        try {
+            pilha.mostrar();
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
         }
     }
 

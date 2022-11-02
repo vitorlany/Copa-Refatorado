@@ -33,13 +33,15 @@ class Pilha {
     }
 
     public void mostrar() {
-        int ref = 1;
-        Celula referencia = topo;
-        do {
-            System.out.printf("["+ ref +"]");
-            referencia.getItem().imprimir();
-            referencia = referencia.getProximo();
-            ref++;
-        } while (referencia != fundo);
+        if (! pilhaVazia()) {
+            int i = 0;
+            Celula ref = topo;
+            while (ref.getProximo() != fundo) {
+                System.out.print("[" + i + "]");
+                ref.getItem().imprimir();
+                ref = ref.getProximo();
+                i++;
+            }
+        }
     }
 }
