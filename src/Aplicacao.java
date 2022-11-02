@@ -9,8 +9,57 @@ public class Aplicacao {
     public static void main(String[] args) {
         MyIO.setCharset("UTF-8");
         carregarJogos();
-        
 
+        Pilha pilha = new Pilha();
+
+        try {
+            String entrada = MyIO.readLine();
+            while (!entrada.equals("FIM")) {
+                Jogo res = compararJogos(entrada);
+                pilha.empilhar(res);
+                entrada = MyIO.readLine();
+            }
+        } catch (Exception e) {
+            System.err.println(e.getMessage());
+        }
+
+        int tamanho = Integer.valueOf(MyIO.readLine());
+
+        for (int i = 0; i < tamanho; i++) {
+            String prox = MyIO.readLine();
+            char comando = prox.charAt(0);
+
+            switch (comando) {
+                case 'E':
+                    String separar[] = prox.split(" ");
+                    try {
+                        String substituir = prox.replaceAll("^E ", "");
+                        Jogo empilhar = compararJogos(substituir);
+                        pilha.empilhar(empilhar);
+                    } catch (Exception e) {
+                        System.err.println(e.getMessage());
+                        System.err.println(prox);
+                    }
+                    break;
+
+                case 'D':
+                    try {
+                        Jogo desempilhado = pilha.desempilhar();
+                        System.out.print("(D) ");
+                        desempilhado.imprimir();
+                    } catch (Exception e) {
+                        System.out.println(e.getMessage());
+                        System.err.println(prox);
+                    }
+                    break;
+
+                default:
+                    System.err.println("Erro ao encontrar o comando!");
+                    System.err.println(prox);
+                    break;
+            }
+            
+        }
     }
 
     public static Jogo compararJogos(String entrada) throws Exception {
@@ -59,7 +108,7 @@ public class Aplicacao {
             }
             scanner.close();
         } catch (Exception e) {
-            System.out.println(e.getMessage());
+            System.err.println(e.getMessage());
         }
     }
 }
