@@ -9,8 +9,14 @@ public class Aplicacao {
     public static void main(String[] args) {
         MyIO.setCharset("UTF-8");
         carregarJogos();
+        
 
-        try {
+    }
+
+    public static Jogo compararJogos(String entrada) throws Exception {
+        /*try {
+        // Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
+        // Esse tipo de scanner tambem funciona!!!
             String entrada = MyIO.readLine();
             while (!entrada.equals("FIM")) {
                 Jogo res = compararJogos(entrada);
@@ -19,10 +25,7 @@ public class Aplicacao {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
-        }
-    }
-
-    public static Jogo compararJogos(String entrada) throws Exception {
+        }*/
         String vetorEntrada[] = entrada.split("/|;");
         Boolean parar = false;
         Jogo res = new Jogo();
