@@ -1,6 +1,7 @@
 class Celula {
     Jogo item;
     Celula proximo;
+    Celula anterior;
 
     public Celula() { // Criando satélite;
         item = new Jogo();
@@ -10,6 +11,14 @@ class Celula {
     public Celula (Jogo novo) {
         item = novo;
         proximo = null;
+    }
+
+    public Celula getAnterior() {
+        return anterior;
+    }
+
+    public void setAnterior(Celula anterior) {
+        this.anterior = anterior;
     }
 
     public Jogo getItem() {

@@ -17,6 +17,7 @@ class Pilha {
 
     public void empilhar(Jogo novo) {
         Celula novaCelula = new Celula(novo);
+        topo.setAnterior(novaCelula);
         novaCelula.setProximo(topo);
         topo = novaCelula;
     }
@@ -33,15 +34,17 @@ class Pilha {
     }
 
     public void mostrar() {
-        if (! pilhaVazia()) {
-            int i = 0;
-            Celula ref = topo;
-            while (ref.getProximo() != fundo) {
-                System.out.print("[" + i + "]");
+        int i = 0;
+        Celula ref = fundo.getAnterior();
+        while (ref.getAnterior() != null) {
+            try {
+                System.out.print("[" + i +"]");
                 ref.getItem().imprimir();
-                ref = ref.getProximo();
                 i++;
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
             }
+            ref = ref.getAnterior();
         }
     }
 }
