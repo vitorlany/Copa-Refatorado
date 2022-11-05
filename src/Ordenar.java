@@ -9,69 +9,24 @@ class Ordenar {
         array[j] = temp;
     }
 
-	public static void bubblesort(Jogo[] array) {
-        int comparacoes = 0;
-        int movimentacoes = 0;
-        int n = (array.length - 1);
-        for (int i = (n - 1); i > 0; i--) {
-            for (int j = 0; j < i; j++) {
-                Jogo jogoAtual = array[j];
-                Jogo jogoProximo = array[j + 1];
-
-                if (jogoAtual.getDia() > jogoProximo.getDia()) {
-                    comparacoes++;
-                    movimentacoes++;
-                    trocarOrdem(array, j, j + 1);
-
-                } else if (jogoAtual.getDia() == jogoProximo.getDia()) {
-                    comparacoes++;
-                    if (jogoAtual.getMes() > jogoProximo.getMes()) {
-                        comparacoes++;
-                        movimentacoes++;
-                        trocarOrdem(array, j, j + 1);
-
-                    } else if (jogoAtual.getMes() == jogoProximo.getMes()) {
-                        comparacoes++;
-                        if (jogoAtual.getAno() > jogoProximo.getAno()) {
-                            comparacoes++;
-                            movimentacoes++;
-                            trocarOrdem(array, j, j + 1);
-
-                        } else if (jogoAtual.getAno() == jogoProximo.getAno()) {
-                            comparacoes++;
-                            if (jogoAtual.getSelecao1().compareTo(jogoProximo.getSelecao1()) > 0) {
-                                comparacoes++;
-                                movimentacoes++;
-                                trocarOrdem(array, j, j + 1);
-                            }
-                        }
-                    }
-                }
-            }
-
-        }
-        numMovimentacoes = movimentacoes;
-        numComparacoes = comparacoes;
-    }
-
     public static boolean comparacao(Jogo analizado, Jogo atual) {
-        if (analizado.getAno() > atual.getAno()) {
+        if (analizado.getAno() > atual.getAno()) { // DIA
             numComparacoes++;
             numMovimentacoes++;
             return true;
-        } else if (analizado.getAno() == atual.getAno()) {
+        } else if (analizado.getAno() == atual.getAno()) { // DIA
             numComparacoes++;
-            if (analizado.getMes() > atual.getMes()) {
+            if (analizado.getDia() > atual.getDia()) { // MES
                 numComparacoes++;
                 numMovimentacoes++;
                 return true;
-            } else if (analizado.getMes() == atual.getMes()) {
+            } else if (analizado.getDia() == atual.getDia()) { // MES
                 numComparacoes++;
-                if (analizado.getDia() > atual.getDia()) {
+                if (analizado.getMes() > atual.getMes()) { // ANO
                     numComparacoes++;
                     numMovimentacoes++;
                     return true;
-                } else if (analizado.getDia() == atual.getDia()) {
+                } else if (analizado.getMes() == atual.getMes()) { // ANO
                     numComparacoes++;
                     if (analizado.getSelecao1().compareTo(atual.getSelecao1()) > 0) {
                         numComparacoes++;
@@ -86,17 +41,19 @@ class Ordenar {
         return false;
     }
 
-    public static void insercao(Jogo[] array) {
+    public static void selecao(Jogo[] array) {
         int n = array.length;
-        for (int i = 1; i < n; i++) {
-            Jogo tmp = array[i];
-            int j = i - 1;
-
-            while ( (j >= 0) && (comparacao(array[j], tmp)) ) {
-                array[j + 1] = array[j];
-                j--;
+        for (int i = 0; i < (n - 1); i++) {
+            int menor = i;
+            for (int j = (i + 1); j < n; j++) {
+                if (comparacao(array[menor], array[j])) {
+                    menor = j;
+                }
             }
-            array[j + 1] = tmp;
+            Jogo temp = array[i];
+            array[i] = array[menor];
+            array[menor] = temp;
         }
     }
+
 }
