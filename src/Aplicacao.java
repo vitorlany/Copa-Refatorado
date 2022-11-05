@@ -1,4 +1,6 @@
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
@@ -24,10 +26,22 @@ public class Aplicacao {
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
-
+        long tempoInicial = System.currentTimeMillis();
         Ordenar.bubblesort(vetorOrdenado);
+        long tempoFinal = System.currentTimeMillis() - tempoInicial;
         for (int i = 0; i < vetorOrdenado.length - 1; i++) {
             vetorOrdenado[i].imprimir();
+        }
+
+        try {
+            File log = new File("1386402_bolha.txt");
+            String str = String.format("1386402\t%d\t%d\t%d", tempoFinal, Ordenar.numComparacoes, Ordenar.numMovimentacoes);
+            BufferedWriter writer = new BufferedWriter(new FileWriter("1386402_bolha.txt"));
+            writer.write(str);
+            //System.out.println(str);
+            writer.close();
+        } catch (Exception err) {
+            System.err.println(err.getMessage());
         }
     }
 
