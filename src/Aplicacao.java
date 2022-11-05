@@ -10,60 +10,24 @@ public class Aplicacao {
         MyIO.setCharset("UTF-8");
         carregarJogos();
 
-        Pilha pilha = new Pilha();
+        Scanner scanner = new Scanner(System.in);
+
+        int tamanho = Integer.valueOf(scanner.nextLine());
+        Jogo vetorOrdenado[] = new Jogo[tamanho];
 
         try {
-            String entrada = MyIO.readLine();
-            while (!entrada.equals("FIM")) {
-                Jogo res = compararJogos(entrada);
-                pilha.empilhar(res);
-                entrada = MyIO.readLine();
+            for (int i = 0; i < tamanho - 1; i++) {
+                String entrada = scanner.nextLine();
+                Jogo resp = compararJogos(entrada);
+                vetorOrdenado[i] = resp;
             }
         } catch (Exception e) {
             System.err.println(e.getMessage());
         }
 
-        int tamanho = Integer.valueOf(MyIO.readLine());
-
-        for (int i = 0; i < tamanho; i++) {
-            String prox = MyIO.readLine();
-            char comando = prox.charAt(0);
-
-            switch (comando) {
-                case 'E':
-                    String separar[] = prox.split(" ");
-                    try {
-                        String substituir = prox.replaceAll("^E ", "");
-                        Jogo empilhar = compararJogos(substituir);
-                        pilha.empilhar(empilhar);
-                    } catch (Exception e) {
-                        System.err.println(e.getMessage());
-                        System.err.println(prox);
-                    }
-                    break;
-
-                case 'D':
-                    try {
-                        Jogo desempilhado = pilha.desempilhar();
-                        System.out.print("(D) ");
-                        desempilhado.imprimir();
-                    } catch (Exception e) {
-                        System.out.println(e.getMessage());
-                        System.err.println(prox);
-                    }
-                    break;
-
-                default:
-                    System.err.println("Erro ao encontrar o comando!");
-                    System.err.println(prox);
-                    break;
-            }
-        }
-
-        try {
-            pilha.mostrar();
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        Ordenar.bubblesort(vetorOrdenado);
+        for (int i = 0; i < vetorOrdenado.length - 1; i++) {
+            vetorOrdenado[i].imprimir();
         }
     }
 
