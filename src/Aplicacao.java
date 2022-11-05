@@ -28,16 +28,16 @@ public class Aplicacao {
         }
         long tempoInicial = System.currentTimeMillis();
         //Ordenar.bubblesort(vetorOrdenado);
-        Ordenar.selecao(vetorOrdenado);
+        Ordenar.mergesort(vetorOrdenado, 0, vetorOrdenado.length - 1);
         long tempoFinal = System.currentTimeMillis() - tempoInicial;
         for (int i = 0; i < vetorOrdenado.length; i++) {
             vetorOrdenado[i].imprimir();
         }
 
         try {
-            File log = new File("1386402_selecao.txt");
+            File log = new File("1386402_mergesort.txt");
             String str = String.format("1386402\t%d\t%d\t%d", tempoFinal, Ordenar.numComparacoes, Ordenar.numMovimentacoes);
-            BufferedWriter writer = new BufferedWriter(new FileWriter("1386402_selecao.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("1386402_mergesort.txt"));
             writer.write(str);
             //System.out.println(str);
             writer.close();
