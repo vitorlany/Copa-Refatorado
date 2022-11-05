@@ -10,32 +10,36 @@ class Ordenar {
     }
 
     public static boolean comparacao(Jogo analizado, Jogo atual) {
-
-        if (analizado.getLocal().compareTo(atual.getLocal()) > 0) {
+        if (analizado.getAno() > atual.getAno()) {
             numComparacoes++;
             numMovimentacoes++;
             return true;
-        } else if (analizado.getLocal().compareTo(atual.getLocal()) == 0) {
-            if (analizado.getAno() > atual.getAno()) {
+        } else if (analizado.getAno() == atual.getAno()) {
+            numComparacoes++;
+            if (analizado.getMes() > atual.getMes()) {
                 numComparacoes++;
                 numMovimentacoes++;
                 return true;
-            } else if (analizado.getAno() == atual.getAno()) {
+            } else if (analizado.getMes() == atual.getMes()) {
                 numComparacoes++;
-                if (analizado.getMes() > atual.getMes()) {
+                if (analizado.getDia() > atual.getDia()) {
                     numComparacoes++;
                     numMovimentacoes++;
                     return true;
-                } else if (analizado.getMes() == atual.getMes()) {
+                } else if (analizado.getDia() == atual.getDia()) {
                     numComparacoes++;
-                    if (analizado.getDia() > atual.getDia()) {
+                    if (analizado.getEtapa().compareTo(atual.getEtapa()) > 0) {
                         numComparacoes++;
                         numMovimentacoes++;
                         return true;
-                    } else if (analizado.getDia() == atual.getDia()) {
-                        numComparacoes++;
-                        numMovimentacoes++;
-                        return true;
+                    } else if (analizado.getEtapa().compareTo(atual.getEtapa()) == 0) {
+                        if (analizado.getSelecao1().compareTo(atual.getSelecao1()) > 0) {
+                            numComparacoes++;
+                            numMovimentacoes++;
+                            return true;
+                        } else {
+                            return false;
+                        }
                     }
                 }
             }
@@ -43,52 +47,39 @@ class Ordenar {
         return false;
     }
 
-    public static void mergesort(Jogo[] array, int esq, int dir) {
-        if (esq < dir) {
-            int meio = (esq + dir) / 2;
-            mergesort(array, esq, meio);
-            mergesort(array, meio + 1, dir);
-            intercalar(array, esq, meio, dir);
+    public static void sort(Jogo[] array) {
+        int n = array.length;
+        quicksort(array, 0, n - 1);
+    }
+
+    private static void quicksort(Jogo[] array, int esq, int dir) {
+
+        int part;
+        if (esq < dir){
+            part = particao(array, esq, dir);
+            quicksort(array, esq, part - 1);
+            quicksort(array, part + 1, dir);
         }
     }
 
-    private static void intercalar(Jogo[] array, int esq, int meio, int dir) {
+    private static int particao(Jogo[] array, int inicio, int fim) {
 
-        int n1, n2, i, j, k;
-
-        //Definir tamanho dos dois subarrays
-        n1 = meio - esq + 1;
-        n2 = dir - meio;
-
-        Jogo[] a1 = new Jogo[n1];
-        Jogo[] a2 = new Jogo[n2];
-
-        //Inicializar primeiro subarray
-        for (i = 0; i < n1; i++) {
-            a1[i] = array[esq + i];
-        }
-
-        //Inicializar segundo subarray
-        for (j = 0; j < n2; j++) {
-            a2[j] = array[meio + j + 1];
-        }
-
-        //Intercalação propriamente dita
-        for (i = j = 0, k = esq; (i < n1 && j < n2); k++) {
-            if (comparacao(a2[j], a1[i]))
-
-                array[k] = a1[i++];
-            else
-                array[k] = a2[j++];
-        }
-
-        if (i == n1)
-            for (; k <= dir; k++) {
-                array[k] = a2[j++];
+        Jogo pivot = array[fim];
+        int part = inicio - 1;
+        for (int i = inicio; i < fim; i++) {
+            if (comparacao(pivot, array[i])) {
+                part++;
+                swap(array, part, i);
             }
-        else
-            for (; k <= dir; k++) {
-                array[k] = a1[i++];
-            }
+        }
+        part++;
+        swap(array, part, fim);
+        return (part);
+    }
+
+    private static void swap(Jogo[] array, int i, int j) {
+        Jogo temp = array[i];
+        array[i] = array[j];
+        array[j] = temp;
     }
 }
