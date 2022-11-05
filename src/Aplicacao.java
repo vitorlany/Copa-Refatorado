@@ -18,7 +18,7 @@ public class Aplicacao {
         Jogo vetorOrdenado[] = new Jogo[tamanho];
 
         try {
-            for (int i = 0; i < tamanho - 1; i++) {
+            for (int i = 0; i < tamanho; i++) {
                 String entrada = scanner.nextLine();
                 Jogo resp = compararJogos(entrada);
                 vetorOrdenado[i] = resp;
@@ -27,16 +27,17 @@ public class Aplicacao {
             System.err.println(e.getMessage());
         }
         long tempoInicial = System.currentTimeMillis();
-        Ordenar.bubblesort(vetorOrdenado);
+        //Ordenar.bubblesort(vetorOrdenado);
+        Ordenar.insercao(vetorOrdenado);
         long tempoFinal = System.currentTimeMillis() - tempoInicial;
-        for (int i = 0; i < vetorOrdenado.length - 1; i++) {
+        for (int i = 0; i < vetorOrdenado.length; i++) {
             vetorOrdenado[i].imprimir();
         }
 
         try {
-            File log = new File("1386402_bolha.txt");
+            File log = new File("1386402_insercao.txt");
             String str = String.format("1386402\t%d\t%d\t%d", tempoFinal, Ordenar.numComparacoes, Ordenar.numMovimentacoes);
-            BufferedWriter writer = new BufferedWriter(new FileWriter("1386402_bolha.txt"));
+            BufferedWriter writer = new BufferedWriter(new FileWriter("1386402_insercao.txt"));
             writer.write(str);
             //System.out.println(str);
             writer.close();

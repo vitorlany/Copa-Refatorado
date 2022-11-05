@@ -53,4 +53,50 @@ class Ordenar {
         numMovimentacoes = movimentacoes;
         numComparacoes = comparacoes;
     }
+
+    public static boolean comparacao(Jogo analizado, Jogo atual) {
+        if (analizado.getAno() > atual.getAno()) {
+            numComparacoes++;
+            numMovimentacoes++;
+            return true;
+        } else if (analizado.getAno() == atual.getAno()) {
+            numComparacoes++;
+            if (analizado.getMes() > atual.getMes()) {
+                numComparacoes++;
+                numMovimentacoes++;
+                return true;
+            } else if (analizado.getMes() == atual.getMes()) {
+                numComparacoes++;
+                if (analizado.getDia() > atual.getDia()) {
+                    numComparacoes++;
+                    numMovimentacoes++;
+                    return true;
+                } else if (analizado.getDia() == atual.getDia()) {
+                    numComparacoes++;
+                    if (analizado.getSelecao1().compareTo(atual.getSelecao1()) > 0) {
+                        numComparacoes++;
+                        numMovimentacoes++;
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+            }
+        }
+        return false;
+    }
+
+    public static void insercao(Jogo[] array) {
+        int n = array.length;
+        for (int i = 1; i < n; i++) {
+            Jogo tmp = array[i];
+            int j = i - 1;
+
+            while ( (j >= 0) && (comparacao(array[j], tmp)) ) {
+                array[j + 1] = array[j];
+                j--;
+            }
+            array[j + 1] = tmp;
+        }
+    }
 }
