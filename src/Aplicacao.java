@@ -65,7 +65,7 @@ public class Aplicacao {
 
                     case "RI":
                         removido = listaJogos.remover(0);
-                        System.out.print("(R)");
+                        System.out.print("(R) ");
                         removido.imprimir();
                         ultimo--;
                         break;
@@ -74,7 +74,7 @@ public class Aplicacao {
                         strPosicao = entrada.split(" ")[1];
                         posicao = Integer.valueOf(strPosicao);
                         removido = listaJogos.remover(posicao);
-                        System.out.print("(R)");
+                        System.out.print("(R) ");
                         removido.imprimir();
                         ultimo--;
                         break;
