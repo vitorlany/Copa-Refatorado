@@ -44,6 +44,7 @@ public class Aplicacao {
                         strJogo = entrada.substring(3, entrada.length());
                         jogoInserir = compararJogos(strJogo, vetorJogos);
                         listaJogos.inserir(jogoInserir, 0);
+                        ultimo++;
                         break;
 
                     case "I*":
@@ -52,6 +53,7 @@ public class Aplicacao {
                         strJogo = entrada.substring((3 + strPosicao.length() + 1), entrada.length());
                         jogoInserir = compararJogos(strJogo, vetorJogos);
                         listaJogos.inserir(jogoInserir, posicao);
+                        ultimo++;
                         break;
 
                     case "IF":
@@ -78,7 +80,7 @@ public class Aplicacao {
                         break;
 
                     case "RF":
-                        removido = listaJogos.remover(ultimo);
+                        removido = listaJogos.remover(ultimo-1);
                         System.out.print("(R) ");
                         removido.imprimir();
                         ultimo--;

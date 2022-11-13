@@ -2,7 +2,7 @@ class ListaLinear {
 
     private Jogo lista[];
     private int primeiro;
-    private int ultimo;
+    public int ultimo;
     private int tamanho;
 
     public ListaLinear(int M) {
