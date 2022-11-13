@@ -6,47 +6,97 @@ import java.nio.charset.StandardCharsets;
 import java.util.Scanner;
 
 public class Aplicacao {
-    public static Jogo vetorJogos[] = new Jogo[1500];
 
     public static void main(String[] args) {
+        Jogo vetorJogos[] = new Jogo[1500];
         MyIO.setCharset("UTF-8");
-        carregarJogos();
+        carregarJogos(vetorJogos);
 
+        ListaLinear listaJogos = new ListaLinear(1000);
         Scanner scanner = new Scanner(System.in);
+        int ultimo = 0;
+
+        String entrada = scanner.nextLine();
+        while (!entrada.equals("FIM")) {
+            try {
+                Jogo res = compararJogos(entrada, vetorJogos);
+                entrada = scanner.nextLine();
+                listaJogos.inserir(res, ultimo);
+                ultimo++;
+            } catch (Exception e) {
+                System.err.println(e.getMessage());
+            }
+        }
 
         int tamanho = Integer.valueOf(scanner.nextLine());
-        Jogo vetorOrdenado[] = new Jogo[tamanho];
 
-        try {
-            for (int i = 0; i < tamanho; i++) {
-                String entrada = scanner.nextLine();
-                Jogo resp = compararJogos(entrada);
-                vetorOrdenado[i] = resp;
+        for (int i = 0; i < tamanho; i++) {
+            entrada = scanner.nextLine();
+            String comando = entrada.substring(0, 2);
+            String strJogo;
+            Jogo jogoInserir;
+            int posicao;
+            String strPosicao;
+            Jogo removido;
+            try {
+                switch (comando) {
+                    case "II":
+                        strJogo = entrada.substring(3, entrada.length());
+                        jogoInserir = compararJogos(strJogo, vetorJogos);
+                        listaJogos.inserir(jogoInserir, 0);
+                        break;
+
+                    case "I*":
+                        strPosicao = entrada.split(" ")[1];
+                        posicao = Integer.valueOf(strPosicao);
+                        strJogo = entrada.substring((3 + strPosicao.length() + 1), entrada.length());
+                        jogoInserir = compararJogos(strJogo, vetorJogos);
+                        listaJogos.inserir(jogoInserir, posicao);
+                        break;
+
+                    case "IF":
+                        strJogo = entrada.substring(3, entrada.length());
+                        jogoInserir = compararJogos(strJogo, vetorJogos);
+                        listaJogos.inserir(jogoInserir, ultimo);
+                        ultimo++;
+                        break;
+
+                    case "RI":
+                        removido = listaJogos.remover(0);
+                        System.out.print("(R)");
+                        removido.imprimir();
+                        ultimo--;
+                        break;
+
+                    case "R*":
+                        strPosicao = entrada.split(" ")[1];
+                        posicao = Integer.valueOf(strPosicao);
+                        removido = listaJogos.remover(posicao);
+                        System.out.print("(R)");
+                        removido.imprimir();
+                        ultimo--;
+                        break;
+
+                    case "RF":
+                        removido = listaJogos.remover(ultimo);
+                        System.out.print("(R) ");
+                        removido.imprimir();
+                        ultimo--;
+                        break;
+                }
+            } catch (Exception e) {
+                System.err.printf("%s : %s\n", comando, e.getMessage());
             }
-        } catch (Exception e) {
-            System.err.println(e.getMessage());
-        }
-        long tempoInicial = System.currentTimeMillis();
-        //Ordenar.bubblesort(vetorOrdenado);
-        Ordenar.sort(vetorOrdenado);
-        long tempoFinal = System.currentTimeMillis() - tempoInicial;
-        for (int i = 0; i < vetorOrdenado.length; i++) {
-            vetorOrdenado[i].imprimir();
         }
 
         try {
-            File log = new File("1386402_quicksort.txt");
-            String str = String.format("1386402\t%d\t%d\t%d", tempoFinal, Ordenar.numComparacoes, Ordenar.numMovimentacoes);
-            BufferedWriter writer = new BufferedWriter(new FileWriter("1386402_quicksort.txt"));
-            writer.write(str);
-            //System.out.println(str);
-            writer.close();
-        } catch (Exception err) {
-            System.err.println(err.getMessage());
+            listaJogos.imprimir();
+        } catch (Exception e) {
+            System.err.print(e.getMessage());
         }
     }
 
-    public static Jogo compararJogos(String entrada) throws Exception {
+    public static Jogo compararJogos(String entrada, Jogo vetorJogos[]) throws Exception {
         /*try {
         // Scanner scanner = new Scanner(System.in, StandardCharsets.UTF_8);
         // Esse tipo de scanner tambem funciona!!!
@@ -59,6 +109,7 @@ public class Aplicacao {
         } catch (Exception e) {
             System.out.println(e.getMessage());
         }*/
+        MyIO.setCharset("UTF-8");
         String vetorEntrada[] = entrada.split("/|;");
         Boolean parar = false;
         Jogo res = new Jogo();
@@ -81,7 +132,7 @@ public class Aplicacao {
         return res;
     }
 
-    public static void carregarJogos() {
+    public static void carregarJogos(Jogo vetorJogos[]) {
         MyIO.setCharset("UTF-8");
         try {
             File dataBase = new File("./src/tmp/partidas.txt");
