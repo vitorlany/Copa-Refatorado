@@ -2,7 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="be688d21-2a8e-4ad5-a54c-d0d3672b041b" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/.idea/uiDesigner.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Celula.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ListaEncadeada.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Aplicacao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/Aplicacao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ListaLinear.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,7 +27,7 @@
   <component name="HighlightingSettingsPerFile">
     <setting file="file://$PROJECT_DIR$/src/Aplicacao.java" root0="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/src/Jogo.java" root0="SKIP_INSPECTION" />
-    <setting file="file://$PROJECT_DIR$/src/ListaLinear.java" root0="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/src/ListaEncadeada.java" root0="SKIP_INSPECTION" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />

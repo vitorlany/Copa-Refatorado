@@ -12,7 +12,7 @@ public class Aplicacao {
         MyIO.setCharset("UTF-8");
         carregarJogos(vetorJogos);
 
-        ListaLinear listaJogos = new ListaLinear(1000);
+        ListaEncadeada listaJogos = new ListaEncadeada();
         Scanner scanner = new Scanner(System.in);
         int ultimo = 0;
 
