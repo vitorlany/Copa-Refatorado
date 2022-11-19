@@ -14,15 +14,13 @@ public class Aplicacao {
 
         ListaEncadeada listaJogos = new ListaEncadeada();
         Scanner scanner = new Scanner(System.in);
-        int ultimo = 0;
 
         String entrada = scanner.nextLine();
         while (!entrada.equals("FIM")) {
             try {
                 Jogo res = compararJogos(entrada, vetorJogos);
                 entrada = scanner.nextLine();
-                listaJogos.inserir(res, ultimo);
-                ultimo++;
+                listaJogos.inserirFinal(res);
             } catch (Exception e) {
                 System.err.println(e.getMessage());
             }
@@ -44,7 +42,6 @@ public class Aplicacao {
                         strJogo = entrada.substring(3, entrada.length());
                         jogoInserir = compararJogos(strJogo, vetorJogos);
                         listaJogos.inserir(jogoInserir, 0);
-                        ultimo++;
                         break;
 
                     case "I*":
@@ -53,21 +50,18 @@ public class Aplicacao {
                         strJogo = entrada.substring((3 + strPosicao.length() + 1), entrada.length());
                         jogoInserir = compararJogos(strJogo, vetorJogos);
                         listaJogos.inserir(jogoInserir, posicao);
-                        ultimo++;
                         break;
 
                     case "IF":
                         strJogo = entrada.substring(3, entrada.length());
                         jogoInserir = compararJogos(strJogo, vetorJogos);
-                        listaJogos.inserir(jogoInserir, ultimo);
-                        ultimo++;
+                        listaJogos.inserirFinal(jogoInserir);
                         break;
 
                     case "RI":
-                        removido = listaJogos.remover(0);
+                        removido = listaJogos.removerInicio();
                         System.out.print("(R) ");
                         removido.imprimir();
-                        ultimo--;
                         break;
 
                     case "R*":
@@ -76,14 +70,12 @@ public class Aplicacao {
                         removido = listaJogos.remover(posicao);
                         System.out.print("(R) ");
                         removido.imprimir();
-                        ultimo--;
                         break;
 
                     case "RF":
-                        removido = listaJogos.remover(ultimo-1);
+                        removido = listaJogos.removerFinal();
                         System.out.print("(R) ");
                         removido.imprimir();
-                        ultimo--;
                         break;
                 }
             } catch (Exception e) {

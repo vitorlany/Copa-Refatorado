@@ -40,6 +40,8 @@ class ListaEncadeada {
 
             anterior.setProximo(novaCelula);
             novaCelula.setProximo(proximaCelula);
+            novaCelula.setAnterior(anterior);
+            proximaCelula.setAnterior(novaCelula);
 
             if (posicao == tamanho)  // a inserção ocorreu na última posição da lista
                 ultimo = novaCelula;
@@ -62,10 +64,13 @@ class ListaEncadeada {
 
                 celulaRemovida = anterior.getProximo();
 
+
                 proximaCelula = celulaRemovida.getProximo();
 
                 anterior.setProximo(proximaCelula);
+                proximaCelula.setAnterior(anterior);
                 celulaRemovida.setProximo(null);
+                celulaRemovida.setAnterior(null);
 
                 if (celulaRemovida == ultimo)
                     ultimo = anterior;
@@ -77,6 +82,50 @@ class ListaEncadeada {
                 throw new Exception("Não foi possível remover o item da lista: a posição informada é inválida!");
         } else
             throw new Exception("Não foi possível remover o item da lista: a lista está vazia!");
+    }
+
+    public void inserirInicio(Jogo novo) throws Exception {
+        inserir(novo, 0);
+    }
+
+    public void inserirFinal(Jogo novo) {
+
+        Celula novaCelula;
+
+        novaCelula = new Celula(novo);
+
+        ultimo.setProximo(novaCelula);
+        novaCelula.setAnterior(ultimo);
+
+        ultimo = novaCelula;
+
+        tamanho++;
+
+    }
+
+    public Jogo removerInicio() throws Exception {
+        return remover(0);
+    }
+
+    public Jogo removerFinal() throws Exception {
+
+        Celula removida, penultima;
+
+        if (! listaVazia()) {
+
+            removida = ultimo;
+
+            penultima = ultimo.getAnterior();
+            penultima.setProximo(null);
+            removida.setAnterior(null);
+
+            ultimo = penultima;
+
+            tamanho--;
+
+            return (removida.getItem());
+        } else
+            throw new Exception("Não foi possível remover o último item da lista: a lista está vazia!");
     }
 
     public void imprimir() throws Exception {
