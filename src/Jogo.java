@@ -1,4 +1,4 @@
-class Jogo {
+public class Jogo {
     private int ano;
     private String etapa;
     private int dia;
@@ -9,40 +9,35 @@ class Jogo {
     private String selecao2;
     private String local;
 
-    public Jogo(String entrada) {
-        String divisoes[] = entrada.split("#");
+    public Jogo(String input) {
+        String[] divisors = input.split("#");
 
-        this.ano = Integer.valueOf(divisoes[0]);
-        this.etapa = divisoes[1];
-        this.dia = Integer.valueOf(divisoes[2]);
-        this.mes = Integer.valueOf(divisoes[3]);
-        this.selecao1 = divisoes[4];
-        this.selecao1Gols = Integer.valueOf(divisoes[5]);
-        this.selecao2Gols = Integer.valueOf(divisoes[6]);
-        this.selecao2 = divisoes[7];
-        this.local = divisoes[8];
+        this.ano = Integer.parseInt(divisors[0]);
+        this.etapa = divisors[1];
+        this.dia = Integer.parseInt(divisors[2]);
+        this.mes = Integer.parseInt(divisors[3]);
+        this.selecao1 = divisors[4];
+        this.selecao1Gols = Integer.parseInt(divisors[5]);
+        this.selecao2Gols = Integer.parseInt(divisors[6]);
+        this.selecao2 = divisors[7];
+        this.local = divisors[8];
     }
 
-    public Jogo(int ano, String etapa, int dia, int mes, String selecao1, int selecao1Gols, int selecao2Gols, String selecao2, String local) {
-        this.ano = ano;
-        this.etapa = etapa;
-        this.dia = dia;
-        this.mes = mes;
-        this.selecao1 = selecao1;
-        this.selecao1Gols = selecao1Gols;
-        this.selecao2Gols = selecao2Gols;
-        this.selecao2 = selecao2;
-        this.local = local;
+    @Override
+    public String toString() {
+        return "Jogo{" +
+                "ano=" + ano +
+                ", etapa='" + etapa + '\'' +
+                ", dia=" + dia +
+                ", mes=" + mes +
+                ", selecao1='" + selecao1 + '\'' +
+                ", selecao1Gols=" + selecao1Gols +
+                ", selecao2Gols=" + selecao2Gols +
+                ", selecao2='" + selecao2 + '\'' +
+                ", local='" + local + '\'' +
+                '}';
     }
 
-    public Jogo() {}
-
-    public void imprimir() {
-        String saida = String.format("[COPA %d] [%s] [%d/%d] [%s (%d) x (%d) %s] [%s]", ano, etapa, dia, mes, selecao1, selecao1Gols, selecao2Gols, selecao2, local);
-        System.out.println(saida);
-    }
-
-    /* Getter and Setters */
     public int getAno() {
         return ano;
     }
